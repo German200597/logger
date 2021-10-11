@@ -6,13 +6,12 @@ from datetime import datetime
 
 
 def logger(function):
-    with open('new_file.txt', 'w') as f:
-        function_time = str(datetime.now())
-        function_name = function.__name__
-        f.write(f'{function_name} — {function_time}')
-
-    def new_function():
-        result=function()
+    def new_function(*args, **kwargs):
+        result=function(*args, **kwargs)
+        with open('new_file.txt', 'w') as f:
+            function_time = str(datetime.now())
+            function_name = function.__name__
+            f.write(f'{function_name} — {function_time}. Аргументы: {args}, {kwargs}'. )
         return result
     return new_function
     
